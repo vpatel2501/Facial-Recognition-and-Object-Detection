@@ -1,25 +1,18 @@
-# CEG 4166: Lab 4 - Final code for facial recognition (macOS version)
-
 import cv2
 import numpy as np
 import os
 import threading
 
-# Load the face detection model
 cascadePath = os.path.join(os.getcwd(), 'haarcascade_frontalface_default.xml')
 faceDetector = cv2.CascadeClassifier(cascadePath)
 
-# Load trained face recognition model
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read('model.yml')
 
-# Font settings
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-# Name data (adjust order to match your tags in Dataset_Faces)
 name_data = ['none', 'Veeren', 'Bruno']
 
-# Initialize webcam
 cam = cv2.VideoCapture(0)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -38,7 +31,6 @@ def face_recognition(dummy1, dummy2):
             cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
             id, confidence = recognizer.predict(gray[y:y + h, x:x + w])
             
-            # Determine name and confidence
             if confidence < 100:
                 name = name_data[id] if id < len(name_data) else "Unknown"
                 confidence_text = " {0}%".format(round(100 - confidence))
@@ -51,7 +43,6 @@ def face_recognition(dummy1, dummy2):
 
         cv2.imshow('Stingray Face Detector', img)
 
-        # Exit on ESC key
         if cv2.waitKey(10) & 0xFF == 27:
             break
 
@@ -59,8 +50,4 @@ def face_recognition(dummy1, dummy2):
     cam.release()
     cv2.destroyAllWindows()
 
-# # Start face recognition in a separate thread
-# faceRecognitionThread = threading.Thread(target=face_recognition, args=('dummy1', 'dummy2'))
-# faceRecognitionThread.start()
-# Run directly in the main thread (macOS-safe)
 face_recognition(None, None)
