@@ -2,14 +2,11 @@ import cv2
 import os
 import time
 
-# Load the face detection model
 cascadePath = os.path.join(os.getcwd(), 'haarcascade_frontalface_default.xml')
 faceDetector = cv2.CascadeClassifier(cascadePath)
 
-# Initialize webcam (0 = default camera)
 cam = cv2.VideoCapture(0)
 
-# Set frame dimensions
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
