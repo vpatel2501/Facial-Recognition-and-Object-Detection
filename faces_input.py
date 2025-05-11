@@ -13,15 +13,12 @@ cam = cv2.VideoCapture(0)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
-# Wait for camera to warm up
 time.sleep(2)
 
-# Get face ID input
 faceId = input("\nEnter Face ID (S.No): ")
 print("\nLook at the camera.")
 count = 0
 
-# Ensure dataset directory exists
 dataset_path = "Dataset_Faces"
 os.makedirs(dataset_path, exist_ok=True)
 
@@ -38,13 +35,11 @@ while True:
         cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
         count += 1
 
-        # Save the captured image
         face_filename = os.path.join(dataset_path, f"Tag.{faceId}.{count}.jpg")
         cv2.imwrite(face_filename, gray[y:y + h, x:x + w])
 
     cv2.imshow("Face Capture", img)
 
-    # Break on 'ESC' key or after capturing 50 images
     k = cv2.waitKey(100) & 0xFF
     if k == 27 or count >= 50:
         break
