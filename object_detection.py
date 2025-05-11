@@ -6,7 +6,6 @@ from threading import Thread
 import matplotlib.pyplot as plt
 from tensorflow.lite.python.interpreter import Interpreter
 
-# Webcam class for macOS
 class Video_Webcam:
     def __init__(self, resolution=(640, 480), framerate=60):
         self.cap = cv2.VideoCapture(0)
@@ -32,7 +31,6 @@ class Video_Webcam:
         self.stopped = True
         self.cap.release()
 
-# Globals
 labels, model_interpreter = None, None
 input_details, output_details = None, None
 height, width = None, None
@@ -44,7 +42,6 @@ def load_model():
     global labels, model_interpreter, input_details, output_details
     global height, width, floating_model
 
-    # Model and label paths (change if needed)
     model_path = "detect.tflite"
     label_path = "labelmap.txt"
 
