@@ -1,18 +1,14 @@
-# CEG 4166: Lab 4 - Face detection training model (macOS version)
 
 import cv2
 import numpy as np
 from PIL import Image
 import os
 
-# Path for the face image database
 path = 'Dataset_Faces'
 
-# Load the face detection model
 cascadePath = os.path.join(os.getcwd(), 'haarcascade_frontalface_default.xml')
 faceDetector = cv2.CascadeClassifier(cascadePath)
 
-# Initialize face recognizer (requires opencv-contrib-python)
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 def training_function(path):
@@ -21,10 +17,9 @@ def training_function(path):
     tags = []
     
     for image_path in images_dataset:
-        gray = Image.open(image_path).convert('L')  # convert to grayscale
+        gray = Image.open(image_path).convert('L')  
         img_np = np.array(gray, 'uint8')
         
-        # Extract the face ID from filename format: Tag.<id>.<count>.jpg
         face_id = int(os.path.split(image_path)[-1].split(".")[1])
         faces = faceDetector.detectMultiScale(img_np)
         
@@ -36,7 +31,6 @@ def training_function(path):
 
 faces, tags = training_function(path)
 
-# Train the recognizer if faces were found
 if len(faces) > 0:
     recognizer.train(faces, np.array(tags))
     recognizer.write('model.yml')
