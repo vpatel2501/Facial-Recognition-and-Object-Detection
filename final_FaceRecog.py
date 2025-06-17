@@ -41,7 +41,7 @@ def face_recognition(dummy1, dummy2):
             cv2.putText(img, str(name), (x + 5, y - 5), font, 1, (255, 255, 255), 2)
             cv2.putText(img, str(confidence_text), (x + 5, y + h - 5), font, 1, (255, 255, 0), 1)
 
-        cv2.imshow('Stingray Face Detector', img)
+        cv2.imshow('Facial Recognition', img)
 
         if cv2.waitKey(10) & 0xFF == 27:
             break
